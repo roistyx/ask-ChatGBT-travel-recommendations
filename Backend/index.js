@@ -12,22 +12,25 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-app.post("/find-complexity", async (req, res) => {
+app.post("/day-planner", async (req, res) => {
   try {
-    const { city } = req.body;
+    const { amount } = req.body;
     const { activity } = req.body;
+    const { city } = req.body;
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `return a jS array of coordinates of ${activity} in ${city}`,
-      temperature: 1,
+      prompt: `return a JS array of objects of ${amount} coordinates and names of ${activity} in ${city}.
+      For example: [{name: "Cafe de Flore", coordinates: [48.863096, 2.332536]}, [{name: "Les Deux Magots", coordinates: [48.859809, 2.334535]}]
+      `,
+      temperature: 0.8,
       max_tokens: 2506,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-      //   stop: ["\n"],
+      // stop: ["\n"],
     });
-
+    console.log(response);
     return res.status(200).json({
       success: "true",
       data: response.data.choices[0].text,
