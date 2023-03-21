@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Form Example</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+<!-- <style>
+    body {
+        display: flex;
+        justify-content: center;
+        padding-top: 200px;
+        /* align-items: center; */
+        height: 100vh;
+    }
+</style> -->
+</head>
+
+<body>
+    
+    <!-- <form class="row
+    " role="search">
+        
+        <input type="search" class="form-control" placeholder="Search..." aria-label="Search" id="search-input">
+    <button class="btn btn-primary" type="submit">Submit</button>
+        
+    </form> -->
+    
+<div class="container">
+    <form class="form-inline" action="#">
+        <div class="form-group mb-2">
+            <label for="search-input" class="sr-only">Search</label>
+            <input type="text" class="form-control" id="search-input" name="q" placeholder="Search...">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2 ml-2">Search</button>
+    </form>
+    <div class="search-results">
+        Search
+        <!-- <h2>Search Results</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Search result 1</li>
+                <li class="list-group-item">Search result 2</li>
+                <li class="list-group-item">Search result 3</li>
+            </ul> -->
+    </div>
+</div>
+
+    
+    
+
+    <script>
+        const form = document.querySelector('form');
+        const searchInput = document.querySelector('#search-input');
+        const searchResults = document.querySelector('#search-results');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            searchResults.innerHTML = "Loading..."
+            const query = searchInput.value;
+            const apiUrl = 'http://localhost:4000/free-search'
+            const requestBody = { query };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+                // const response = await fetch('https://6416d60d3fbb68b01bff207d.mockapi.io/free-search/Location')
+                const {answer} = await response.json()
+                            
+                const obj = eval('(' + answer + ')');
+                console.log(obj); 
+                
+                let html = '';
+                // data.map((item) => {
+                //     html += `
+                //         <div>
+                //             <h3>${item.name}</h3>
+                //         </div>
+                //     `;
+                // });
+                searchResults.innerHTML = html;
+            } catch (error) {
+                // Handle error
+                console.error(error);
+                searchResults.innerHTML = 'An error occurred while searching.';
+            }
+        });
+    </script>
+</body>
+
+</html>
+

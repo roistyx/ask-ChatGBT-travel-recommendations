@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Search Page Example</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Link to Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Search Page</h1>
+        <form class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control rounded-pill" placeholder="Search..." id="search-bar">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <ul id="search-results">
+            <!-- Mock search results -->
+            <li><a href="#">Result 1</a></li>
+            <li><a href="#">Result 2</a></li>
+            <li><a href="#">Result 3</a></li>
+            <li><a href="#">Result 4</a></li>
+            <li><a href="#">Result 5</a></li>
+            <li><a href="#">Result 6</a></li>
+        </ul>
+
+    </div>
+    <!-- Link to Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha256-HuVp5JZuJtB9V7AzvdhebdHgV7DWQmK0gPNmc43C0Fk=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        async function search() {
+            const query = document.getElementById('search-bar').value;
+            // const response = await fetch(`/search?query=${query}`);
+            // const results = await response.json();
+            console.log(query);
+            renderResults(results);
+        }
+
+        $(document).ready(function () {
+            // Mock search results array
+            var mockResults = [
+                { title: 'Result 1', url: '#' },
+                { title: 'Result 2', url: '#' },
+                { title: 'Result 3', url: '#' },
+                { title: 'Result 4', url: '#' },
+                { title: 'Result 5', url: '#' },
+                { title: 'Result 6', url: '#' }
+            ];
+
+            $('#search-bar').on('keyup', function () {
+                var query = $(this).val().toLowerCase();
+                var filteredResults = mockResults.filter(function (result) {
+                    return result.title.toLowerCase().indexOf(query) > -1;
+                });
+                renderResults(filteredResults);
+            });
+
+            function renderResults(results) {
+                var $searchResults = $('#search-results');
+                $searchResults.empty();
+                if (results.length === 0) {
+                    $searchResults.append('<li>No results found.</li>');
+                } else {
+                    results.forEach(function (result) {
+                        $searchResults.append('<li><a href="' + result.url + '">' + result.title + '</a></li>');
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

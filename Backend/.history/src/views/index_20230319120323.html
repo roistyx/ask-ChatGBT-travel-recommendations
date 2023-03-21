@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Search API Page Example</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Search API Page</h1>
+        <form class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control rounded-pill" placeholder="Search..." id="search-bar">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <ul id="search-results">
+            <!-- Search results will be added dynamically using JavaScript -->
+        </ul>
+
+    </div>
+    <!-- Link to Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha256-HuVp5JZuJtB9V7AzvdhebdHgV7DWQmK0gPNmc43C0Fk=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        getSearchResults({query:"is this a tree?"});
+       
+        const searchBar = document.getElementById('search-bar');
+        const searchResults = document.getElementById('search-results');
+
+        searchBar.addEventListener('keyup', (e) => {
+            const searchTerm = e.target.value;
+            getSearchResults(searchTerm);
+        });
+
+         async function getSearchResults(searchTerm) {
+            const url = `http://localhost:4000/free-search`;
+           
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({query:searchTerm})
+            });
+            // const data = await response.json();
+            console.log("response", response.body);
+        }
+    </script>
+</body>
+
+</html>

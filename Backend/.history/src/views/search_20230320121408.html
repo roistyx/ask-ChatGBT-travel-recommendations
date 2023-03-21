@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bootstrap Search Form with Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 200px;
+            background-color: #f1f1f1;
+        }
+
+        .search-results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-inline" >
+            <div class="form-group mb-2">
+                <label for="search-input" class="sr-only">Search</label>
+                <input type="text" class="form-control" maxlength="20" id="search-input"  placeholder="Search...">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 ml-2">Search</button>
+        </form>
+        <div class="search-results">
+            <h2>Search Results</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Search result 1</li>
+                <li class="list-group-item">Search result 2</li>
+                <li class="list-group-item">Search result 3</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
